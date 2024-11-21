@@ -6,7 +6,7 @@ describe("Page", () => {
   it("render the page", () => {
     render(<Page />);
     expect(
-      screen.getByRole("listitem", { name: /Get started by editing/i })
+      screen.getByRole("listitem", { name: /Get started by editing/i }),
     ).toBeInTheDocument();
   });
 });
