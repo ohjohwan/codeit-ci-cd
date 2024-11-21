@@ -1,0 +1,33 @@
+name: PR Workflow
+
+on:
+  pull_request:
+    branches:
+      - main  # main 브랜치에 대한 PR이 생성될 때 워크플로가 실행됩니다.
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest  # 사용할 OS 환경 설정
+    
+    strategy:
+      matrix:
+        node-version: [18, 20]  # Node.js 18과 20 버전에서 모두 실행
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # 소스 코드를 체크아웃
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3  # Node.js 환경을 설정
+        with:
+          node-version: ${{ matrix.node-version }}  # 매트릭스를 사용하여 18과 20 버전에서 실행
+
+      - name: Install dependencies
+        run: npm install  # 의존성 설치
+
+      - name: Run tests
+        run: npm test  # 테스트 실행
+
+      - name: Build project
+        run: npm run build  # 빌드 실행
+
